@@ -1,7 +1,15 @@
 const express = require('express');
 
+//get body-parser
+const bodyParser = require('body-parser');
+
 const app = express();
 const PORT = process.env.PORT || 5000;
+
+//without this there is no data to be found on POST
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 
 app.use(express.static('server/public'));
 
@@ -20,6 +28,12 @@ let quotesAndAuthors = [{
 
 app.get('/famousquotes', function (req, res) {
     res.send(quotesAndAuthors);
+});
+
+app.post('/famousquotes', function (req,res) {
+    console.log('Here is req.body', req.body);
+    quotesAndAuthors.push(req.body);
+    res.sendStatus(201);
 });
 
 app.listen(PORT, function () {

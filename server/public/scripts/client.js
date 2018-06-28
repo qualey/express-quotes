@@ -2,6 +2,13 @@ console.log('js');
 
 $(document).ready(readyNow);
 
+class quotesAndAuthors{
+    constructor(quote, author){
+        this.quote = quote;
+        this.author = author;
+    }
+}
+
 function readyNow() {
     console.log('JQ');
     $('#quotesAuthors').append(handleGetQuotes);
