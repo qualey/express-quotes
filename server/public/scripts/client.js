@@ -4,7 +4,8 @@ $(document).ready(readyNow);
 
 function readyNow() {
     console.log('JQ');
-    $('#quotesAuthors').each(handleGetQuotes);
+    $('#quotesAuthors').append(handleGetQuotes);
+    // $('.card').append(handleGetQuotes);
 }
 
 function handleGetQuotes() {
@@ -15,6 +16,7 @@ function handleGetQuotes() {
         console.log(response);
         for (let i = 0; i < response.length; i++) {
             $('#quotesAuthors').append(`<li>"${response[i].quote}" <br><cite> ${response[i].author}</cite></li>`);
+            // $('.card').append(`<p>${response[i].quote}"</p> <footer>${response[i].author}</footer>`);
         }
     }).fail(function (errorResponse) {
         console.log(errorResponse);
