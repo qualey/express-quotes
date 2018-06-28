@@ -12,7 +12,12 @@ class quotesAndAuthors{
 function readyNow() {
     console.log('JQ');
     $('#quotesAuthors').append(handleGetQuotes);
+    clickHandler();
     // $('.card').append(handleGetQuotes);
+}
+
+function clickHandler() {
+    $('#submitBtn').on('click', addQuote);
 }
 
 function handleGetQuotes() {
@@ -21,6 +26,7 @@ function handleGetQuotes() {
         type: 'GET'
     }).done(function (response) {
         console.log(response);
+        $('#quotesAuthors').empty();
         for (let i = 0; i < response.length; i++) {
             $('#quotesAuthors').append(`<li>"${response[i].quote}" <br><cite> ${response[i].author}</cite></li>`);
             // $('.card').append(`<p>${response[i].quote}"</p> <footer>${response[i].author}</footer>`);
@@ -30,3 +36,22 @@ function handleGetQuotes() {
         alert('Request failed');
     });
 }
+
+function addQuote() {
+    console.log('Clicked submit');
+    let quote = $('#quote').val();
+    let author = $('#author').val();
+
+    $.ajax({
+        url : '/famousquotes',
+        method : 'POST',
+        data : {
+            quote: quote,
+            author: author,
+        }
+    }).done(function(response) {
+        console.log(response);
+        handleGetQuotes();
+    });
+}
+
